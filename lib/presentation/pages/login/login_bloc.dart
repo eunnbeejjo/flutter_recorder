@@ -1,29 +1,38 @@
-// API 호출 로직?
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'login_event.dart';
-import 'login_state.dart';
+import 'package:bloc/bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter_recorder/core/network/dio_client.dart';
+import 'package:flutter_recorder/presentation/pages/login/login_event.dart';
+import 'package:flutter_recorder/presentation/pages/login/login_state.dart';
+import 'package:dio/dio.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
+  final Dio _dio = DioClient().dio;
+  final FlutterSecureStorage _storage = const FlutterSecureStorage();
+
   LoginBloc() : super(LoginInitial()) {
     on<LoginButtonPressed>(_onLoginButtonPressed);
   }
 
-  // 로그인 버튼 클릭 시 실행되는 메서드
   Future<void> _onLoginButtonPressed(
     LoginButtonPressed event,
     Emitter<LoginState> emit,
   ) async {
-    emit(LoginLoading()); // 로딩 상태로 변경
+    emit(LoginLoading());
 
     try {
-      // 로그인 API 요청 (여기서는 가짜 딜레이)
-      await Future.delayed(Duration(seconds: 1));
+      final data = {'email': event.email, 'password': event.password};
 
-      // 로그인 성공
+      final response = await _dio.post('/accounts/login', data: data);
+
+      final accessToken = response.data['access_token'];
+      final refreshToken = response.data['refresh_token'];
+
+      await _storage.write(key: 'access_token', value: accessToken);
+      await _storage.write(key: 'refresh_token', value: refreshToken);
+
       emit(LoginSuccess());
     } catch (error) {
-      // 로그인 실패
-      emit(LoginFailure(error: "로그인 실패!"));
+      emit(LoginFailure(error: '로그인 실패'));
     }
   }
 }

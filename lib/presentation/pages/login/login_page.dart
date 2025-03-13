@@ -12,13 +12,13 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController usernameController = TextEditingController();
+    final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
 
-    return Scaffold(
-      body: BlocProvider(
-        create: (context) => LoginBloc(),
-        child: Padding(
+    return BlocProvider<LoginBloc>(
+      create: (context) => LoginBloc(), // LoginBloc 제공
+      child: Scaffold(
+        body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -35,7 +35,7 @@ class LoginPage extends StatelessWidget {
               const SizedBox(height: 40),
 
               // 아이디 입력 필드
-              CustomTextField(hintText: "아이디", controller: usernameController),
+              CustomTextField(hintText: "아이디", controller: emailController),
               const SizedBox(height: 20),
 
               // 비밀번호 입력 필드
@@ -51,10 +51,8 @@ class LoginPage extends StatelessWidget {
                 // listener: state 변화 감지하여 함수/API 요청 등 실행
                 listener: (context, state) {
                   if (state is LoginSuccess) {
-                    // 로그인 성공 시 리스트 페이지로 이동
-                    context.go('/record-list');
+                    context.go('/record-list'); // 로그인 성공 시 이동
                   } else if (state is LoginFailure) {
-                    // 로그인 실패 시 에러 메시지 표시
                     ScaffoldMessenger.of(
                       context,
                     ).showSnackBar(SnackBar(content: Text(state.error)));
@@ -69,7 +67,7 @@ class LoginPage extends StatelessWidget {
                             : () {
                               context.read<LoginBloc>().add(
                                 LoginButtonPressed(
-                                  username: usernameController.text,
+                                  email: emailController.text,
                                   password: passwordController.text,
                                 ),
                               );

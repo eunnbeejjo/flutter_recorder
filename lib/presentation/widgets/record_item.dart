@@ -48,7 +48,12 @@ class RecordItem extends StatelessWidget {
               Text(
                 data['createdAt'],
                 textAlign: TextAlign.left,
-                style: TextStyle(color: ColorPalette.primary400),
+                style: TextStyle(
+                  color: ColorPalette.primary400,
+                  fontSize: 14,
+                  fontStyle: FontStyle.normal,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
               SizedBox(width: 12),
               SvgPicture.asset(
@@ -58,7 +63,12 @@ class RecordItem extends StatelessWidget {
               ),
               Text(
                 '${data['duration']}분',
-                style: TextStyle(color: ColorPalette.primary400),
+                style: TextStyle(
+                  color: ColorPalette.primary400,
+                  fontSize: 14,
+                  fontStyle: FontStyle.normal,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ],
           ),
