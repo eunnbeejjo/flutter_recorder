@@ -10,9 +10,13 @@ class ColorPalette {
 
   // 메인 색상
   static const Color primaryBase = Color(0xFF3770FF); // primary color
+  static const Color primary300 = Color(0xFF85A7FF); // primary300
   static const Color primary400 = Color(0xFF618EFF); // primary400
 
   // grayscale
+  static const Color gray50 = Color(0xFFF3F6FB); // gray50
+  static const Color gray100 = Color(0xFFE2E8F1); // gray100
+  static const Color gray200 = Color(0xFFCDD6E6); // gray200
   static const Color gray300 = Color(0xFFA2B0C6); // gray300
   static const Color gray400 = Color(0xFF8593A9); // gray400
 

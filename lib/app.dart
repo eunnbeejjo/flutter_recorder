@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_recorder/presentation/widgets/layouts/back_layout.dart';
 import 'package:flutter_recorder/theme/color_palette.dart';
 import 'package:go_router/go_router.dart';
 import 'presentation/pages/login/login_page.dart';
-// import 'presentation/pages/register_page.dart';
+import 'presentation/pages/register/register_page.dart';
 import 'presentation/pages/record_list/record_list_page.dart';
 // import 'presentation/pages/record_page.dart';
 import 'presentation/widgets/layouts/default_layout.dart';
@@ -29,17 +30,17 @@ class MyApp extends StatelessWidget {
 }
 
 final GoRouter _router = GoRouter(
-  initialLocation: '/login',
+  initialLocation: '/',
   routes: [
     // 빈 레이아웃 적용
     GoRoute(
-      path: '/login',
+      path: '/',
       builder: (context, state) => EmptyLayout(child: LoginPage()),
     ),
-    // GoRoute(
-    //   path: '/register',
-    //   builder: (context, state) => EmptyLayout(child: RegisterPage()),
-    // ),
+    GoRoute(
+      path: '/register',
+      builder: (context, state) => BackLayout(child: RegisterPage()),
+    ),
     // GoRoute(
     //   path: '/record',
     //   builder: (context, state) => EmptyLayout(child: RecordPage()),

@@ -15,8 +15,9 @@ class LoginPage extends StatelessWidget {
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
 
+    // 상태관리 및 이벤트 처리하는 LoginBloc 제공하기 위해 BlocProvider 로 감싸줌
     return BlocProvider<LoginBloc>(
-      create: (context) => LoginBloc(), // LoginBloc 제공
+      create: (context) => LoginBloc(), // LoginBloc 생성
       child: Scaffold(
         body: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -74,7 +75,7 @@ class LoginPage extends StatelessWidget {
                             },
                     style: ElevatedButton.styleFrom(
                       minimumSize: const Size(double.infinity, 54),
-                      backgroundColor: ColorPalette.pink,
+                      backgroundColor: ColorPalette.primaryBase,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
